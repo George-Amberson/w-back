@@ -18,12 +18,11 @@ app.use(express.json())
 
 
 // API routes тут
+app.get("/", (req, res) => {
+  res.send("API IS WORKING")
+})
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on ${PORT}`);
-});
 app.get('/guest/:slug', async (req, res) => {
   const { slug } = req.params
   console.log(slug)
@@ -59,3 +58,7 @@ app.post('/rsvp', async (req, res) => {
     res.status(500).json({ error: 'Update failed' })
   }
 })
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
+});
