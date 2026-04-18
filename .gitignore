@@ -1,0 +1,10 @@
+node_modules
+# Keep environment variables out of version control
+.env
+backend
+prisma/prisma/dev.db
+/generated/prisma
+.vscode
+package-lock.json
+list.json
+bdGen.js

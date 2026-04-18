@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Invite {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  greeting  String
+  pronoun   String  @default("вас")
+  guests    Guest[]  // связь 1 → N
+
+  createdAt DateTime @default(now())
+}
+// Таблица гостей
+model Guest {
+  id            Int      @id @default(autoincrement())
+  name          String
+  surname       String?
+  status        String   @default("notInvited")
+  comment       String?
+
+  wineRed       Boolean?
+  wineWhite     Boolean?
+  champagne     Boolean?
+  whiskey       Boolean?
+  vodka         Boolean?
+  alkoFree      Boolean?
+
+  createdAt     DateTime @default(now())
+
+  // 🔗 связь с Invite
+  invite        Invite?   @relation(fields: [inviteId], references: [id])
+  inviteId      Int?
+}
